@@ -43,4 +43,25 @@ public class Country {
         || getIso().toLowerCase().contains(query)
         || getPhoneCode().toLowerCase().contains(query);
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Country country = (Country) o;
+
+    if (iso != null ? !iso.equals(country.iso) : country.iso != null) return false;
+    if (phoneCode != null ? !phoneCode.equals(country.phoneCode) : country.phoneCode != null)
+      return false;
+    return name != null ? name.equals(country.name) : country.name == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = iso != null ? iso.hashCode() : 0;
+    result = 31 * result + (phoneCode != null ? phoneCode.hashCode() : 0);
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    return result;
+  }
 }

@@ -6,12 +6,12 @@ version = "2.4.2"
 def verCode = 242
 
 android {
-  compileSdkVersion 29
+  compileSdkVersion 30
   buildToolsVersion "29.0.3"
 
   defaultConfig {
     minSdkVersion 14
-    targetSdkVersion 29
+    targetSdkVersion 30
     versionCode verCode
     versionName version
   }
@@ -25,10 +25,7 @@ android {
 }
 
 dependencies {
-//  implementation fileTree(dir: 'libs', include: ['*.jar'])
-//  testImplementation 'junit:junit:4.12'
-//  api 'io.michaelrocks:libphonenumber-android:8.10.7'
-//  api 'io.michaelrocks:libphonenumber-android:8.10.16'
-  api 'io.michaelrocks:libphonenumber-android:8.12.5'
-  implementation 'androidx.annotation:annotation:1.1.0'
+  implementation 'io.michaelrocks:libphonenumber-android:8.12.23'
+  implementation 'androidx.annotation:annotation:1.2.0'
+  implementation 'android.arch.lifecycle:livedata-core:1.1.1'
 }
