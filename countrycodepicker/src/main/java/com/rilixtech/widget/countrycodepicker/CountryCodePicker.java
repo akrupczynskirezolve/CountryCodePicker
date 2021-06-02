@@ -55,7 +55,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
   //Util
   private PhoneNumberUtil mPhoneUtil;
   private PhoneNumberWatcher mPhoneNumberWatcher;
-  private TextWatcher textWatcherForLiveDataUpdate = new TextWatcher() {
+  private final TextWatcher textWatcherForLiveDataUpdate = new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -119,7 +119,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
 
   private OnCountryChangeListener mOnCountryChangeListener;
 
-  private MutableLiveData<String> fullNumberWithPlus = new MutableLiveData<>();
+  private final MutableLiveData<String> fullNumberWithPlus = new MutableLiveData<>();
 
   /**
    * interface to set change listener
@@ -161,6 +161,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
       init(attrs);
   }
 
+  @SuppressWarnings("unused")
   public MutableLiveData<String> getFullNumberWithPlusMutable() {
     return fullNumberWithPlus;
   }
@@ -308,6 +309,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
    *
    * @param hint string resourceId
    */
+  @SuppressWarnings("unused")
   public void setCustomHint(@StringRes int hint) {
     this.mHint = hint;
     enableHint(true);
@@ -491,8 +493,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
 
     List<Country> localCountries = new ArrayList<>();
     String[] split = mCustomMasterCountries.split(",");
-    for (int i = 0; i < split.length; i++) {
-      String nameCode = split[i];
+    for (String nameCode : split) {
       Country country = CountryUtils.getByNameCodeFromAllCountries(getContext(), nameCode);
       if (country == null) continue;
       //to avoid duplicate entry of country
