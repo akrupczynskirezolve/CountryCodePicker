@@ -70,7 +70,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
     public void afterTextChanged(Editable editable) {
 
     }
-  }
+  };
   PhoneNumberInputValidityListener mPhoneNumberInputValidityListener;
   private PhoneNumberFilter mPhoneNumberFilter;
 
