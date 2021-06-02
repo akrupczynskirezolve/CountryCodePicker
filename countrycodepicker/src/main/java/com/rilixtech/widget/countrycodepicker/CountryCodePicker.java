@@ -10,7 +10,9 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -53,6 +55,22 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
   //Util
   private PhoneNumberUtil mPhoneUtil;
   private PhoneNumberWatcher mPhoneNumberWatcher;
+  private TextWatcher textWatcherForLiveDataUpdate = new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+      fullNumberWithPlus.postValue(getFullNumberWithPlus());
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+  }
   PhoneNumberInputValidityListener mPhoneNumberInputValidityListener;
   private PhoneNumberFilter mPhoneNumberFilter;
 
@@ -867,6 +885,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
   void setRegisteredPhoneNumberTextView(@NonNull TextView phoneNumberTextView) {
     if(mRegisteredPhoneNumberTextView != phoneNumberTextView) {
       registerInputFilter(phoneNumberTextView);
+      phoneNumberTextView.addTextChangedListener(textWatcherForLiveDataUpdate);
     }
     mRegisteredPhoneNumberTextView = phoneNumberTextView;
     if (mIsEnablePhoneNumberWatcher) {
@@ -880,6 +899,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
   private void setPhoneNumberWatcherToTextView(TextView phoneNumberTextView, String countryNameCode) {
     if(mRegisteredPhoneNumberTextView != phoneNumberTextView) {
       registerInputFilter(phoneNumberTextView);
+      phoneNumberTextView.addTextChangedListener(textWatcherForLiveDataUpdate);
     }
     if (!mIsEnablePhoneNumberWatcher) return;
 
@@ -1235,7 +1255,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
       return previousCountryCode;
     }
 
-    @SuppressWarnings("unused") public PhoneNumberWatcher() {
+    public PhoneNumberWatcher() {
       super();
     }
 
@@ -1248,6 +1268,7 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
 
     @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
       super.onTextChanged(s, start, before, count);
+      Log.i("PhoneNumberWatcher", s.toString());
       try {
         String iso = null;
         if (mSelectedCountry != null) iso = mSelectedCountry.getPhoneCode().toUpperCase();
@@ -1267,7 +1288,6 @@ public class CountryCodePicker extends RelativeLayout implements PhoneNumberFilt
         }
         lastValidity = validity;
       }
-      fullNumberWithPlus.postValue(getFullNumberWithPlus());
     }
   }
 
