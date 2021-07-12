@@ -8,15 +8,38 @@
     android:padding="8dp"
     >
 
+  <FrameLayout
+      android:id="@+id/frame_icon_close_fl"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:background="?android:attr/selectableItemBackground"
+      >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_close_black_24dp" />
+
+  </FrameLayout>
+
   <TextView
       android:id="@+id/title_tv"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:layout_marginEnd="10dp"
+      android:layout_toStartOf="@+id/frame_icon_close_fl"
+      android:layout_toLeftOf="@+id/frame_icon_close_fl"
       android:text="@string/select_country"
       android:textAppearance="?android:attr/textAppearanceLarge"
-      android:textColor="@android:color/secondary_text_light"
-      />
+      android:textColor="@android:color/secondary_text_light" />
 
   <EditText
       android:id="@+id/search_edt"

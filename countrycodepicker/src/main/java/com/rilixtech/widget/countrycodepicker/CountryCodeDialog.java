@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,12 +37,14 @@ class CountryCodeDialog extends Dialog {
   private ListView mLvCountryDialog;
   private CountryCodePicker mCountryCodePicker;
   private RelativeLayout mRlyDialog;
+  private FrameLayout mFlCloseDialog;
 
   private List<Country> masterCountries;
   private List<Country> mFilteredCountries;
   private InputMethodManager mInputMethodManager;
   private CountryCodeArrayAdapter mArrayAdapter;
   private LinkedHashSet<Country> mTempCountries;
+
 
   CountryCodeDialog(CountryCodePicker countryCodePicker) {
     super(countryCodePicker.getContext());
@@ -62,6 +65,7 @@ class CountryCodeDialog extends Dialog {
     mTvTitle = findViewById(R.id.title_tv);
     mEdtSearch = findViewById(R.id.search_edt);
     mTvNoResult = findViewById(R.id.no_result_tv);
+    mFlCloseDialog = findViewById(R.id.frame_icon_close_fl);
   }
 
   private void setupData() {
@@ -98,6 +102,13 @@ class CountryCodeDialog extends Dialog {
     Context ctx = mCountryCodePicker.getContext();
     mInputMethodManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
     setSearchBar();
+
+    mFlCloseDialog.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          dismiss();
+      }
+    });
   }
 
   private void setupListView(ListView listView) {
